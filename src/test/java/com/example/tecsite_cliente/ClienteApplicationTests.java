@@ -1,4 +1,4 @@
-package com.example.cliente;
+package com.example.tecsite_cliente;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

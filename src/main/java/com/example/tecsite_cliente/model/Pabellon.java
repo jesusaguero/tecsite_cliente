@@ -1,7 +1,10 @@
-package com.example.cliente.model;
+package com.example.tecsite_cliente.model;
+import lombok.Getter;
+
 import javax.persistence.*;
 import java.util.List;
 
+@Getter
 @Entity
 @Table(name = "adminapp_pabellon")
 public class Pabellon {
@@ -11,24 +14,12 @@ public class Pabellon {
 
     private String nombre;
 
-    public Long getId() {
-        return id;
-    }
-
     public void setId(Long id) {
         this.id = id;
     }
 
-    public String getNombre() {
-        return nombre;
-    }
-
     public void setNombre(String nombre) {
         this.nombre = nombre;
-    }
-
-    public List<Laboratorio> getLaboratorios() {
-        return laboratorios;
     }
 
     public void setLaboratorios(List<Laboratorio> laboratorios) {

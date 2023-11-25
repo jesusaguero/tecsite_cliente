@@ -1,6 +1,6 @@
-package com.example.cliente.controller;
-import com.example.cliente.model.Cliente;
-import com.example.cliente.service.ClienteService;
+package com.example.tecsite_cliente.controller;
+import com.example.tecsite_cliente.model.Cliente;
+import com.example.tecsite_cliente.service.ClienteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

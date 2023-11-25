@@ -1,7 +1,11 @@
-package com.example.cliente.model;
+package com.example.tecsite_cliente.model;
+import lombok.Getter;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
 import javax.persistence.*;
 
+@Getter
 @Entity
 @Table(name = "adminapp_usuario")
 public class Cliente {
@@ -19,24 +23,12 @@ public class Cliente {
 
     private String contraseña;
 
-    public Long getId() {
-        return id;
-    }
-
     public void setId(Long id) {
         this.id = id;
     }
 
-    public String getCodigo() {
-        return codigo;
-    }
-
     public void setCodigo(String codigo) {
         this.codigo = codigo;
-    }
-
-    public String getContraseña() {
-        return contraseña;
     }
 
     public void setContraseña(String contraseña) {

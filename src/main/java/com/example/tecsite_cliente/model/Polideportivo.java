@@ -1,6 +1,9 @@
-package com.example.cliente.model;
+package com.example.tecsite_cliente.model;
+import lombok.Getter;
+
 import javax.persistence.*;
 
+@Getter
 @Entity
 @Table(name = "adminapp_polideportivo")
 public class Polideportivo {
@@ -8,16 +11,8 @@ public class Polideportivo {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    public Long getId() {
-        return id;
-    }
-
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public String getNombre() {
-        return nombre;
     }
 
     public void setNombre(String nombre) {

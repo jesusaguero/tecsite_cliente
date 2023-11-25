@@ -1,4 +1,4 @@
-package com.example.cliente;
+package com.example.tecsite_cliente;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
