@@ -1,28 +1,21 @@
 package com.example.cliente.model;
-import lombok.Getter;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import lombok.Getter;
+import javax.persistence.Id;
 
 @Getter
 @Entity
-@Table(name = "adminapp_polideportivo")
 public class Polideportivo {
+    public Polideportivo() {
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
     private String nombre;
 
-    public Polideportivo(Long id, String nombre) {
-        this.id = id;
-        this.nombre = nombre;
     }
-}

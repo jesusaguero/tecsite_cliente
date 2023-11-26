@@ -1,13 +1,14 @@
 package com.example.cliente.model;
+
 import lombok.Getter;
 
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import javax.persistence.Id;
 
 @Getter
 @Entity
-@Table(name = "adminapp_reservapolideportivo")
 public class ReservaPolideportivo {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -15,39 +16,9 @@ public class ReservaPolideportivo {
 
     private LocalDate fecha;
     private LocalTime horaInicio;
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public void setFecha(LocalDate fecha) {
-        this.fecha = fecha;
-    }
-
-    public void setHoraInicio(LocalTime horaInicio) {
-        this.horaInicio = horaInicio;
-    }
-
-    public void setHoraFin(LocalTime horaFin) {
-        this.horaFin = horaFin;
-    }
-
-    public void setPolideportivo(Polideportivo polideportivo) {
-        this.polideportivo = polideportivo;
-    }
-
     private LocalTime horaFin;
-
-    public ReservaPolideportivo(Long id, LocalDate fecha, LocalTime horaInicio, LocalTime horaFin, Polideportivo polideportivo) {
-        this.id = id;
-        this.fecha = fecha;
-        this.horaInicio = horaInicio;
-        this.horaFin = horaFin;
-        this.polideportivo = polideportivo;
-    }
 
     @ManyToOne
     @JoinColumn(name = "polideportivo_id")
     private Polideportivo polideportivo;
-
 }

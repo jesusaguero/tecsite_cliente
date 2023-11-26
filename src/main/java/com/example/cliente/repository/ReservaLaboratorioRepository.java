@@ -1,7 +1,8 @@
 package com.example.cliente.repository;
 import com.example.cliente.model.ReservaLaboratorio;
-import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.repository.CrudRepository;
+import org.springframework.stereotype.Repository;
 
-public interface ReservaLaboratorioRepository extends JpaRepository<ReservaLaboratorio, Long> {
-    // Puedes agregar métodos adicionales según tus necesidades
+@Repository
+public interface ReservaLaboratorioRepository extends CrudRepository<ReservaLaboratorio, Long> {
 }
