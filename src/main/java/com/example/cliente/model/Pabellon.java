@@ -1,20 +1,18 @@
 package com.example.cliente.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.OneToMany;
-import lombok.Getter;
-import javax.persistence.Id;
+import javax.persistence.*;
+
+import lombok.Data;
 
 import java.util.List;
 
-@Getter
+@Data
 @Entity
+@Table(name = "adminapp_pabellon")
 public class Pabellon {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Integer id;
 
     private String nombre;
 
@@ -22,5 +20,29 @@ public class Pabellon {
     private List<Laboratorio> laboratorios;
 
     public Pabellon() {
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public List<Laboratorio> getLaboratorios() {
+        return laboratorios;
+    }
+
+    public void setLaboratorios(List<Laboratorio> laboratorios) {
+        this.laboratorios = laboratorios;
     }
 }
