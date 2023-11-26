@@ -1,6 +1,6 @@
-package com.example.tecsite_cliente.controller;
+package com.example.cliente.controller;
 
-import com.example.tecsite_cliente.service.ReservaPolideportivoService;
+import com.example.cliente.service.ReservaPolideportivoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

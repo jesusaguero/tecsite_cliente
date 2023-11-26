@@ -1,5 +1,5 @@
-package com.example.tecsite_cliente.repository;
-import com.example.tecsite_cliente.model.ReservaLaboratorio;
+package com.example.cliente.repository;
+import com.example.cliente.model.ReservaLaboratorio;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface ReservaLaboratorioRepository extends JpaRepository<ReservaLaboratorio, Long> {

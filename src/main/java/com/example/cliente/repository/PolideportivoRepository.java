@@ -1,6 +1,6 @@
-package com.example.tecsite_cliente.repository;
+package com.example.cliente.repository;
 
-import com.example.tecsite_cliente.model.Polideportivo;
+import com.example.cliente.model.Polideportivo;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface PolideportivoRepository extends JpaRepository<Polideportivo, Long> {

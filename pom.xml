@@ -17,11 +17,7 @@
         <java.version>17</java.version>
     </properties>
     <dependencies>
-        <dependency>
-            <groupId>javax.persistence</groupId>
-            <artifactId>javax.persistence-api</artifactId>
-            <version>2.2</version>
-        </dependency>
+        <!-- Spring Boot Starter Dependencies -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-jpa</artifactId>
@@ -35,27 +31,38 @@
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
 
+        <!-- Database Driver -->
+        <dependency>
+            <groupId>com.google.protobuf</groupId>
+            <artifactId>protobuf-java</artifactId>
+            <version>3.19.6</version>
+        </dependency>
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>8.0.28</version>
+        </dependency>
+
+        <!-- Hibernate -->
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-core</artifactId>
+            <version>6.3.1.Final</version>
+        </dependency>
+
+        <!-- Lombok for code generation -->
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <optional>true</optional>
         </dependency>
+
+        <!-- Testing Dependencies -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
-        <dependency>
-            <groupId>org.hibernate</groupId>
-            <artifactId>hibernate-core</artifactId>
-            <version>5.6.4.Final</version>
-        </dependency>
-        <dependency>
-            <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
-            <version>8.0.23</version>
-        </dependency>
-
     </dependencies>
 
     <build>

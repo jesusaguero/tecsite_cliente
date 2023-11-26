@@ -1,4 +1,4 @@
-package com.example.tecsite_cliente.model;
+package com.example.cliente.model;
 import lombok.Getter;
 
 import javax.persistence.*;

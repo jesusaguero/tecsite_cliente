@@ -1,5 +1,5 @@
-package com.example.tecsite_cliente.service;
-import com.example.tecsite_cliente.repository.ReservaPolideportivoRepository;
+package com.example.cliente.service;
+import com.example.cliente.repository.ReservaPolideportivoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
