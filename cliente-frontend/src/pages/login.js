@@ -2,7 +2,7 @@ import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Link } from 'react-router-dom';
 import logo from '../assets/logo.jpg';
-import loginImage from '../assets/login-image.jpg';
+import loginImage from '../assets/loginbask.jpg';
 import loginImageLeft from '../assets/signin_screen-2.png';
 import loginImageRight from '../assets/signin_screen-2.png';
 

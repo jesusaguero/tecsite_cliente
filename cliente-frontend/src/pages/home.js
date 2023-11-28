@@ -1,8 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import logo from '../assets/logo.jpg';
-import image1 from '../assets/image1.jpg.png';
-import image2 from '../assets/image2.jpg.png';
+import image1 from '../assets/laboratoriobk.png';
+import image2 from '../assets/polideportivobk.png';
 import loginImageLeft from '../assets/signin_screen-2.png';
 import loginImageRight from '../assets/signin_screen-2.png';
 function Home() {
