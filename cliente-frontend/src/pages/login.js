@@ -1,10 +1,10 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Link } from 'react-router-dom';
-import logo from './logo.jpg';
-import loginImage from './login-image.jpg'; 
-import loginImageLeft from './signin_screen-2.png';
-import loginImageRight from './signin_screen-2.png';
+import logo from '../assets/logo.jpg';
+import loginImage from '../assets/login-image.jpg';
+import loginImageLeft from '../assets/signin_screen-2.png';
+import loginImageRight from '../assets/signin_screen-2.png';
 
 function Login() {
   return (
@@ -21,7 +21,7 @@ function Login() {
           <h3 className="fs-4 text-dark mb-3">Iniciar Sesión</h3>
           <form>
             <p className="fs-5 text-dark mb-4">
-              Reserva los polideportivos y laboratorios para que puedas estudiar!
+              Reserva de los Polideportivos y Laboratorios al alcance de todos!
             </p>
             <div className="mb-3">
               <label htmlFor="email" className="form-label">Código de estudiante</label>

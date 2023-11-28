@@ -1,10 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import logo from './logo.jpg';
-import image1 from './image1.jpg.png';
-import image2 from './image2.jpg.png';
-import loginImageLeft from './signin_screen-2.png'; 
-import loginImageRight from './signin_screen-2.png'; 
+import logo from '../assets/logo.jpg';
+import image1 from '../assets/image1.jpg.png';
+import image2 from '../assets/image2.jpg.png';
+import loginImageLeft from '../assets/signin_screen-2.png';
+import loginImageRight from '../assets/signin_screen-2.png';
 function Home() {
   return (
     <div>
