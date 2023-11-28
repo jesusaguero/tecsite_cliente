@@ -14,7 +14,6 @@ function App() {
         <Routes>
           <Route path="/home" element={<Home />} />
           <Route path="/" element={<Login />} />
-          {/* Agregamos una ruta para el componente Horarios */}
           <Route path="./polideportivos" element={<Polideportivos />} />
         </Routes>
       </div>
