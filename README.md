@@ -1,4 +1,4 @@
-#Proyecto Cliente Spring Boot-Tecsite
+Proyecto Cliente Spring Boot-Tecsite
 
 El proyecto TECSITE CLIENTE, ha sido desarrollado usando la siguiente estructura:
 
