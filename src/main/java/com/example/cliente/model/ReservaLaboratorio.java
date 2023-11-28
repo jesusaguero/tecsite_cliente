@@ -17,10 +17,7 @@ public class ReservaLaboratorio {
     private LocalDate fecha;
     private LocalTime horaInicio;
     private LocalTime horaFin;
-
-    @ManyToOne
-    @JoinColumn(name = "laboratorio_id")
-    private Laboratorio laboratorio;
+    private Integer laboratorio_id;
 
     public ReservaLaboratorio() {
     }
@@ -57,11 +54,11 @@ public class ReservaLaboratorio {
         this.horaFin = horaFin;
     }
 
-    public Laboratorio getLaboratorio() {
-        return laboratorio;
+    public Integer getLaboratorio_id() {
+        return laboratorio_id;
     }
 
-    public void setLaboratorio(Laboratorio laboratorio) {
-        this.laboratorio = laboratorio;
+    public void setLaboratorio_id(Integer laboratorio_id) {
+        this.laboratorio_id = laboratorio_id;
     }
 }

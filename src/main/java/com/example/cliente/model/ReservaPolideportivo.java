@@ -19,10 +19,7 @@ public class ReservaPolideportivo {
     private LocalDate fecha;
     private LocalTime horaInicio;
     private LocalTime horaFin;
-
-    @ManyToOne
-    @JoinColumn(name = "polideportivo_id")
-    private Polideportivo polideportivo;
+    private Integer polideportivo_id;
 
     public ReservaPolideportivo() {
     }
@@ -59,11 +56,11 @@ public class ReservaPolideportivo {
         this.horaFin = horaFin;
     }
 
-    public Polideportivo getPolideportivo() {
-        return polideportivo;
+    public Integer getPolideportivo_id() {
+        return polideportivo_id;
     }
 
-    public void setPolideportivo(Polideportivo polideportivo) {
-        this.polideportivo = polideportivo;
+    public void setPolideportivo_id(Integer polideportivo_id) {
+        this.polideportivo_id = polideportivo_id;
     }
 }

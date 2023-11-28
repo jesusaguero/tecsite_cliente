@@ -39,7 +39,7 @@ public class ReservaLaboratorioController {
         reservaLaboratorioFromDB.setFecha(reservaLaboratorio.getFecha());
         reservaLaboratorioFromDB.setHoraInicio(reservaLaboratorio.getHoraInicio());
         reservaLaboratorioFromDB.setHoraFin(reservaLaboratorio.getHoraFin());
-        reservaLaboratorioFromDB.setLaboratorio(reservaLaboratorio.getLaboratorio());
+        reservaLaboratorioFromDB.setLaboratorio_id(reservaLaboratorio.getLaboratorio_id());
 
         return reservaLaboratorioRepository.save(reservaLaboratorioFromDB);
     }
