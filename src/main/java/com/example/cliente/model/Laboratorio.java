@@ -8,16 +8,11 @@ import lombok.Data;
 @Entity
 @Table(name = "adminapp_laboratorio")
 public class Laboratorio {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-
     private String nombre;
-
-    @ManyToOne
-    @JoinColumn(name = "pabellon_id")
-    private Pabellon pabellon;
+    private Integer pabellon_id;
 
     public Laboratorio() {
     }
@@ -38,11 +33,11 @@ public class Laboratorio {
         this.nombre = nombre;
     }
 
-    public Pabellon getPabellon() {
-        return pabellon;
+    public Integer getPabellon_id() {
+        return pabellon_id;
     }
 
-    public void setPabellon(Pabellon pabellon) {
-        this.pabellon = pabellon;
+    public void setPabellon_id(Integer pabellon_id) {
+        this.pabellon_id = pabellon_id;
     }
 }

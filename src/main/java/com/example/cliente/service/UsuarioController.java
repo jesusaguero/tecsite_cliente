@@ -39,7 +39,7 @@ public class UsuarioController {
         Usuario usuarioFromDB = usuarioRepository.getById(id);
 
         usuarioFromDB.setCodigo(usuario.getCodigo());
-        usuarioFromDB.setContraseña(usuario.getContraseña());
+        usuarioFromDB.setContrasena(usuario.getContrasena());
 
         return usuarioRepository.save(usuarioFromDB);
 

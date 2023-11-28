@@ -3,7 +3,6 @@ package com.example.cliente.model;
 import javax.persistence.*;
 
 import lombok.Data;
-import lombok.Getter;
 
 @Data
 @Entity

@@ -13,7 +13,7 @@ public class Usuario {
 
     private Integer id;
     private String codigo;
-    private String contraseña;
+    private String contrasena;
 
     public Usuario() {
     }
@@ -34,12 +34,12 @@ public class Usuario {
         this.codigo = codigo;
     }
 
-    public String getContraseña() {
-        return contraseña;
+    public String getContrasena() {
+        return contrasena;
     }
 
-    public void setContraseña(String contraseña) {
-        this.contraseña = contraseña;
+    public void setContrasena(String contrasena) {
+        this.contrasena = contrasena;
     }
 
 }
