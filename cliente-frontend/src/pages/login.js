@@ -1,7 +1,7 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Link } from 'react-router-dom';
-import logo from '../assets/logo.jpg';
+import logo from '../assets/logo.png';
 import loginImageLeft from '../assets/signin_screen-2.png';
 import loginImageRight from '../assets/signin_screen-2.png';
 
@@ -14,8 +14,7 @@ function Login() {
       <div className="d-flex flex-column align-items-center">
         <div className="bg-white w-80 p-4 rounded shadow-sm border mb-4">
           <div className="d-flex align-items-center mb-3">
-            <img src={logo} alt="Logo" className="me-2" style={{ width: '50px', height: '50px' }} />
-            <h3 className="fs-4 text-dark">TECSITE</h3>
+            <img src={logo} alt="Logo" className="me-2" style={{ width: '100px', height: '100px' }} />
           </div>
           <h3 className="fs-4 text-dark mb-3">Iniciar Sesión</h3>
           <form>
