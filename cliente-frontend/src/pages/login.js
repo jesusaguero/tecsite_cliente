@@ -46,8 +46,6 @@ function Login() {
           </p>
         </div>
       </div>
-      <img src={loginImage} alt="Login" className="w-50 h-75" />
-
     </div>
   );
 }
