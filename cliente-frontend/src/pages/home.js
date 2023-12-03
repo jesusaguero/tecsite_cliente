@@ -9,9 +9,6 @@ function Home() {
   return (
     <div>
       <header>
-      <nav className="navbar navbar-expand-lg navbar-dark bg-info">
-        <div className="container">
-          <nav className="navbar navbar-expand-lg navbar-dark bg-info">
             <div className="container">
               <Link to="/" className="navbar-brand d-flex align-items-center">
                 <img src={logo} alt="TECSITE Logo" width="100" height="100" className="me-2" />
@@ -28,15 +25,13 @@ function Home() {
                 <span className="navbar-toggler-icon"></span>
               </button>
             </div>
-          </nav>
-        </div>
-      </nav>
     </header>
     <div>
 
 
       <img src={loginImageLeft} alt="Login" className="w-19 h-50 position-absolute start-0" style={{ objectFit: 'cover', zIndex: '-1', transform: 'scaleX(-1)' }} />
     <img src={loginImageRight} alt="Login" className="w-19 h-50 position-absolute end-0" style={{ objectFit: 'cover', zIndex: '-1',  }} />
+
       <main>
         <section className="py-5">
           <div className="container">
@@ -51,15 +46,14 @@ function Home() {
                       borderTopLeftRadius: '0',
                       borderTopRightRadius: '0',
                       width: '100%',
-                      height: '600px',
+                      height: '500px',
                       objectFit: 'cover',
                     }}
                   />
                   <div className="card-body text-center position-absolute top-50 start-50 translate-middle">
                     <h2 className="card-title text-white">Reserva Polideportivos</h2>
-                    <p className="card-text text-white">And an even wittier subheading.</p>
                     <Link to="/reservas/polideportivos" className="btn btn-primary">
-                      View Details
+                      Click para reservar
                     </Link>
                   </div>
                 </div>
@@ -74,15 +68,14 @@ function Home() {
                       borderTopLeftRadius: '0',
                       borderTopRightRadius: '0',
                       width: '100%',
-                      height: '600px',
+                      height: '500px',
                       objectFit: 'cover',
                     }}
                   />
                   <div className="card-body text-center position-absolute top-50 start-50 translate-middle">
                     <h2 className="card-title text-white">Reserva de Laboratorios</h2>
-                    <p className="card-text text-white">And an even wittier subheading.</p>
                     <Link to="/reservas/laboratorios" className="btn btn-primary">
-                      View Details
+                      Click para reservar
                     </Link>
                   </div>
                 </div>
