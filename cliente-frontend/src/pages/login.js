@@ -2,16 +2,15 @@ import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Link } from 'react-router-dom';
 import logo from '../assets/logo.png';
-import loginImageLeft from '../assets/signin_screen-2.png';
-import loginImageRight from '../assets/signin_screen-2.png';
+import loginImageLeft from '../assets/layout.png';
+import loginImageRight from '../assets/layout.png';
 
 function Login() {
   return (
-    <div className="container d-flex align-items-center justify-content-center min-vh-100 bg-white">
-            <img src={loginImageLeft} alt="Login" className="w-19 h-50 position-absolute start-0" style={{ objectFit: 'cover', zIndex: '-1', transform: 'scaleX(-1)' }} />
-            <img src={loginImageRight} alt="Login" className="w-9 h-50 position-absolute end-0" style={{ objectFit: 'cover', zIndex: '-1',  }} />
+    <div className="container d-flex align-items-center justify-content-center min-vh-100 ">
+            <img src={loginImageLeft} alt="Login" className="w-19 h-100 position-absolute start-0" style={{ objectFit: 'cover', zIndex: '-1', transform: 'scaleX(-1)' }} />
+            <img src={loginImageRight} alt="Login" className="w-19 h-100 position-absolute end-0" style={{ objectFit: 'cover', zIndex: '-1',  }} />
 
-      <div className="d-flex flex-column align-items-center">
         <div className="bg-white w-80 p-4 rounded shadow-sm border mb-4">
           <div className="d-flex align-items-center mb-3">
             <img src={logo} alt="Logo" className="me-2" style={{ width: '100px', height: '100px' }} />
@@ -36,15 +35,11 @@ function Login() {
             </Link>
             <div className="form-check mb-3">
               <input type="checkbox" className="form-check-input" id="rememberMe" />
-              <label className="form-check-label" htmlFor="rememberMe">Recuérdame</label>
+              <label className="form-check-label" htmlFor="rememberMe">Recordar</label>
             </div>
           </form>
-          <p className="fs-5 text-secondary mt-4">
-            ¿Olvidaste tu contraseña? <a href="#">Recupérala aquí</a>
-          </p>
         </div>
       </div>
-    </div>
   );
 }
 

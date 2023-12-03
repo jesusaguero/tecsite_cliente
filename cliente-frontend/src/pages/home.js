@@ -3,17 +3,19 @@ import { Link } from 'react-router-dom';
 import logo from '../assets/logo.png';
 import image1 from '../assets/laboratoriobk.png';
 import image2 from '../assets/polideportivobk.png';
-import loginImageLeft from '../assets/signin_screen-2.png';
-import loginImageRight from '../assets/signin_screen-2.png';
+import loginImageLeft from '../assets/layout.png';
+import loginImageRight from '../assets/layout.png';
+import 'bootstrap/dist/css/bootstrap.min.css';
+
 function Home() {
   return (
     <div>
       <header>
             <div className="container">
-              <Link to="/" className="navbar-brand d-flex align-items-center">
-                <img src={logo} alt="TECSITE Logo" width="100" height="100" className="me-2" />
-              </Link>
-              <button
+                <Link to="/home" className="navbar-brand d-flex align-items-center text-center">
+                    <img src={logo} alt="TECSITE Logo" width="100" height="100" className="mx-auto" />
+                </Link>
+                <button
                   className="navbar-toggler"
                   type="button"
                   data-bs-toggle="collapse"
@@ -26,11 +28,9 @@ function Home() {
               </button>
             </div>
     </header>
-    <div>
-
-
-      <img src={loginImageLeft} alt="Login" className="w-19 h-50 position-absolute start-0" style={{ objectFit: 'cover', zIndex: '-1', transform: 'scaleX(-1)' }} />
-    <img src={loginImageRight} alt="Login" className="w-19 h-50 position-absolute end-0" style={{ objectFit: 'cover', zIndex: '-1',  }} />
+   <div>
+       <img src={loginImageLeft} alt="Login" className="w-15 h-70 position-absolute start-0" style={{ objectFit: 'cover', zIndex: '-1', transform: 'scaleX(-1)' }} />
+       <img src={loginImageRight} alt="Login" className="w-15 h-70 position-absolute end-0" style={{ objectFit: 'cover', zIndex: '-1' }} />
 
       <main>
         <section className="py-5">
@@ -43,14 +43,14 @@ function Home() {
                     alt="Imagen 1"
                     className="card-img-bottom"
                     style={{
-                      borderTopLeftRadius: '0',
-                      borderTopRightRadius: '0',
+                      borderTopLeftRadius: '15px',
+                      borderTopRightRadius: '15px',
                       width: '100%',
-                      height: '500px',
+                      height: '400px',
                       objectFit: 'cover',
                     }}
                   />
-                  <div className="card-body text-center position-absolute top-50 start-50 translate-middle">
+                    <div className="card-body text-center position-absolute top-50 start-50 translate-middle w-75">
                     <h2 className="card-title text-white">Reserva Polideportivos</h2>
                     <Link to="/reservas/polideportivos" className="btn btn-primary">
                       Click para reservar
@@ -65,14 +65,14 @@ function Home() {
                     alt="Imagen 2"
                     className="card-img-bottom"
                     style={{
-                      borderTopLeftRadius: '0',
-                      borderTopRightRadius: '0',
-                      width: '100%',
-                      height: '500px',
-                      objectFit: 'cover',
+                        borderTopLeftRadius: '15px',
+                        borderTopRightRadius: '15px',
+                        width: '100%',
+                        height: '400px',
+                        objectFit: 'cover',
                     }}
                   />
-                  <div className="card-body text-center position-absolute top-50 start-50 translate-middle">
+                    <div className="card-body text-center position-absolute top-50 start-50 translate-middle w-75">
                     <h2 className="card-title text-white">Reserva de Laboratorios</h2>
                     <Link to="/reservas/laboratorios" className="btn btn-primary">
                       Click para reservar
