@@ -11,6 +11,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/clientes")
+@CrossOrigin(origins = "http://localhost:3000")
 public class UsuarioController {
 
     @Autowired
@@ -51,5 +52,14 @@ public class UsuarioController {
         usuarioRepository.deleteById(id);
         return ResponseEntity.ok().build();
     }
+    @PostMapping("/login")
+    public ResponseEntity<String> login(@RequestBody Usuario usuario) {
+        Optional<Usuario> usuarioEncontrado = usuarioRepository.findByCodigo(usuario.getCodigo());
 
+        if (usuarioEncontrado.isPresent() && usuarioEncontrado.get().getContrasena().equals(usuario.getContrasena())) {
+            return ResponseEntity.ok("Autenticación exitosa");
+        } else {
+            return ResponseEntity.status(401).body("Credenciales incorrectas");
+        }
+    }
 }

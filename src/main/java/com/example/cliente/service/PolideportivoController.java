@@ -10,6 +10,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/polideportivos")
+@CrossOrigin(origins = "http://localhost:3000")
 public class PolideportivoController {
 
     @Autowired

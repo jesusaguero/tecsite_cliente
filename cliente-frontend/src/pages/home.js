@@ -43,8 +43,10 @@ function Home() {
                     alt="Imagen 1"
                     className="card-img-bottom"
                     style={{
-                      borderTopLeftRadius: '15px',
-                      borderTopRightRadius: '15px',
+                      borderTopLeftRadius: '20px',
+                      borderBottomLeftRadius: '20px',
+                      borderTopRightRadius: '20px',
+                      borderBottomRightRadius: '20px',
                       width: '100%',
                       height: '400px',
                       objectFit: 'cover',
@@ -65,8 +67,10 @@ function Home() {
                     alt="Imagen 2"
                     className="card-img-bottom"
                     style={{
-                        borderTopLeftRadius: '15px',
-                        borderTopRightRadius: '15px',
+                        borderTopLeftRadius: '20px',
+                        borderBottomLeftRadius: '20px',
+                        borderTopRightRadius: '20px',
+                        borderBottomRightRadius: '20px',
                         width: '100%',
                         height: '400px',
                         objectFit: 'cover',
