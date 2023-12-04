@@ -12,6 +12,7 @@ function Login() {
     contrasena: '',
   });
 
+  const [error, setError] = useState(null);
   const navigate = useNavigate();
 
   const handleChange = (e) => {
@@ -27,10 +28,13 @@ function Login() {
       if (response.data === 'Autenticación exitosa') {
         navigate('/home');
       } else {
-        console.log('Autenticación fallida');
+        setError('Credenciales incorrectas');
+        setTimeout(() => setError(null), 4000);
       }
     } catch (error) {
       console.error('Error en la autenticación', error);
+      setError('Credenciales incorrectas');
+      setTimeout(() => setError(null), 4000);
     }
   };
 
@@ -90,6 +94,7 @@ function Login() {
               </label>
             </div>
           </form>
+          {error && <div className="alert alert-danger mt-3">{error}</div>}
         </div>
       </div>
   );
