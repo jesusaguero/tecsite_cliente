@@ -1,126 +1,90 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import Calendar from 'react-calendar';
+import 'react-calendar/dist/Calendar.css';
+import axios from 'axios';
+import {Link} from "react-router-dom";
+import logo from "../assets/logo.png";
 
-const containerStyle = {
-  textAlign: 'center',
-  backgroundColor: '#e9e9e9',
-  padding: '20px',
-  borderRadius: '8px',
-  boxShadow: '0 4px 8px rgba(0, 0, 0, 0.2)',
-  maxWidth: '800px',
-  margin: '0 auto',
-};
 
-const tableStyle = {
-  width: '100%',
-  borderCollapse: 'collapse',
-  border: '2px solid #3e3e3e',
-  borderRadius: '8px', // Agregamos bordes redondeados a la tabla
-  boxShadow: '0 4px 8px rgba(0, 0, 0, 0.2)', // Agregamos una sombra suave
-};
+function Reservas() {
+  const [selectedDate, setSelectedDate] = useState(new Date());
+  const [horariosDisponibles, setHorariosDisponibles] = useState([]);
 
-const cellStyle = {
-  padding: '10px',
-  fontSize: '18px',
-  border: '2px solid #3e3e3e',
-  borderRadius: '8px', // Agregamos bordes redondeados a las celdas
-  backgroundColor: 'white',
-  cursor: 'pointer',
-  transition: 'background-color 0.3s',
-  textAlign: 'center', // Centramos el texto en las celdas
-};
+  useEffect(() => {
+    const fetchHorariosDisponibles = async () => {
+      try {
+        const response = await axios.get(
+            `http://localhost:8090/reservapolideportivo/getAll?fecha=${selectedDate.toISOString()}`
+        );
+        setHorariosDisponibles(response.data);
+      } catch (error) {
+        console.error('Error al obtener los horarios disponibles', error);
+      }
+    };
 
-const selectedStyle = {
-  backgroundColor: '#ff5733',
-};
+    fetchHorariosDisponibles();
+  }, [selectedDate]);
 
-const tableContainerStyle = {
-  display: 'flex',
-  alignItems: 'center',
-};
-
-function Polideportivos() {
-  const [horarioSeleccionado, setHorarioSeleccionado] = useState(null);
-  const [diaSeleccionado, setDiaSeleccionado] = useState(null);
-  const [reserva, setReserva] = useState(null);
-
-  const horariosDisponibles = [
-    '9:00 AM - 10:00 AM',
-    '10:30 AM - 11:30 AM',
-    '12:00 PM - 1:00 PM',
-    '2:00 PM - 3:00 PM',
-  ];
-
-  const diasDisponibles = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes'];
-
-  const handleHorarioClick = (horario) => {
-    setHorarioSeleccionado(horario);
+  const handleDateChange = (date) => {
+    setSelectedDate(date);
   };
 
-  const handleDiaClick = (dia) => {
-    setDiaSeleccionado(dia);
-  };
-
-  const handleReservarClick = () => {
-    if (diaSeleccionado && horarioSeleccionado) {
-      setReserva(`Has reservado para el día ${diaSeleccionado} a las ${horarioSeleccionado}.`);
-    } else {
-      setReserva('No has seleccionado un día y horario para la reserva.');
+  const handleReserva = async (horaInicio) => {
+    try {
+      // Realizar lógica para realizar la reserva aquí
+      console.log('Reserva realizada:', horaInicio);
+    } catch (error) {
+      console.error('Error al realizar la reserva', error);
     }
   };
 
   return (
-    <div style={containerStyle}>
-      <h2>Selecciona un día y un horario:</h2>
-      <div style={tableContainerStyle}>
-        <table style={tableStyle}>
-          <thead>
-            <tr>
-              <th style={{ ...cellStyle, border: 'none' }}></th>
-              {diasDisponibles.map((dia, index) => (
-                <th key={index} style={cellStyle} onClick={() => handleDiaClick(dia)}>
-                  {dia}
-                </th>
-              ))}
-            </tr>
-          </thead>
-          <tbody>
-            {horariosDisponibles.map((horario, index) => (
-              <tr key={index}>
-                <td style={cellStyle}>{horario}</td>
-                {diasDisponibles.map((dia, diaIndex) => (
-                  <td
-                    key={diaIndex}
-                    style={{
-                      ...cellStyle,
-                      ...(dia === diaSeleccionado && horario === horarioSeleccionado
-                        ? selectedStyle
-                        : {}),
-                    }}
-                    onClick={() => {
-                      handleDiaClick(dia);
-                      handleHorarioClick(horario);
-                    }}
-                  >
-                    {dia === diaSeleccionado && horario === horarioSeleccionado
-                      ? 'Seleccionado'
-                      : 'Disponible'}
-                  </td>
-                ))}
+      <div className="container">
+        <Link to="/home" className="navbar-brand d-flex align-items-center text-center">
+          <img src={logo} alt="TECSITE Logo" width="100" height="100" className="mx-auto" />
+        </Link>
+        <button
+            className="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarNav"
+            aria-controls="navbarNav"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+        >
+          <span className="navbar-toggler-icon"></span>
+        </button>
+        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+          <div style={{ marginRight: '20px' }}>
+            <h1>Calendario</h1>
+            <Calendar onChange={handleDateChange} value={selectedDate} />
+          </div>
+          <div>
+            <h2>Horarios Disponibles</h2>
+            <table style={{ width: '100%' }}>
+              <thead>
+              <tr>
+                <th>Hora Inicio</th>
+                <th>Hora Fin</th>
+                <th>Acciones</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+              </thead>
+              <tbody>
+              {horariosDisponibles.map((horario) => (
+                  <tr key={horario.id}>
+                    <td>{horario.horaInicio}</td>
+                    <td>{horario.horaFin}</td>
+                    <td>
+                      <button onClick={() => handleReserva(horario.horaInicio)}>Reservar</button>
+                    </td>
+                  </tr>
+              ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
       </div>
-      <p>
-        Día seleccionado: {diaSeleccionado || 'Ninguno seleccionado'} <br />
-        Horario seleccionado: {horarioSeleccionado || 'Ninguno seleccionado'}
-      </p>
-      <button onClick={handleReservarClick} style={cellStyle}>
-        Reservar
-      </button>
-      <p>{reserva}</p>
-    </div>
   );
 }
 
-export default Polideportivos;
+export default Reservas;
