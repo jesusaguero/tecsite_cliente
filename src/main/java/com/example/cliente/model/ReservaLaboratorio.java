@@ -15,8 +15,7 @@ public class ReservaLaboratorio {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private LocalDate fecha;
-    private LocalTime horaInicio;
-    private LocalTime horaFin;
+    private Integer horario_id;
     private Integer laboratorio_id;
 
     public ReservaLaboratorio() {
@@ -38,20 +37,12 @@ public class ReservaLaboratorio {
         this.fecha = fecha;
     }
 
-    public LocalTime getHoraInicio() {
-        return horaInicio;
+    public Integer getHorario_id() {
+        return horario_id;
     }
 
-    public void setHoraInicio(LocalTime horaInicio) {
-        this.horaInicio = horaInicio;
-    }
-
-    public LocalTime getHoraFin() {
-        return horaFin;
-    }
-
-    public void setHoraFin(LocalTime horaFin) {
-        this.horaFin = horaFin;
+    public void setHorario_id(Integer horario_id) {
+        this.horario_id = horario_id;
     }
 
     public Integer getLaboratorio_id() {

@@ -17,8 +17,7 @@ public class ReservaPolideportivo {
     private Integer id;
 
     private LocalDate fecha;
-    private LocalTime horaInicio;
-    private LocalTime horaFin;
+    private Integer horario_id;
     private Integer polideportivo_id;
 
     public ReservaPolideportivo() {
@@ -40,20 +39,12 @@ public class ReservaPolideportivo {
         this.fecha = fecha;
     }
 
-    public LocalTime getHoraInicio() {
-        return horaInicio;
+    public Integer getHorario_id() {
+        return horario_id;
     }
 
-    public void setHoraInicio(LocalTime horaInicio) {
-        this.horaInicio = horaInicio;
-    }
-
-    public LocalTime getHoraFin() {
-        return horaFin;
-    }
-
-    public void setHoraFin(LocalTime horaFin) {
-        this.horaFin = horaFin;
+    public void setHorario_id(Integer horario_id) {
+        this.horario_id = horario_id;
     }
 
     public Integer getPolideportivo_id() {

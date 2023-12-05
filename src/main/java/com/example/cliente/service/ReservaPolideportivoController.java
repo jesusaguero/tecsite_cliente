@@ -32,8 +32,7 @@ public class ReservaPolideportivoController {
         ReservaPolideportivo reservaPolideportivoFromDB = reservaPolideportivoRepository.getById(id);
 
         reservaPolideportivoFromDB.setFecha(reservaPolideportivo.getFecha());
-        reservaPolideportivoFromDB.setHoraInicio(reservaPolideportivo.getHoraInicio());
-        reservaPolideportivoFromDB.setHoraFin(reservaPolideportivo.getHoraFin());
+        reservaPolideportivoFromDB.setHorario_id(reservaPolideportivo.getHorario_id());
         reservaPolideportivoFromDB.setPolideportivo_id(reservaPolideportivo.getPolideportivo_id());
 
         return reservaPolideportivoRepository.save(reservaPolideportivoFromDB);
