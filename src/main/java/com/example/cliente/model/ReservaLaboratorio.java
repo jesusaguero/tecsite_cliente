@@ -2,10 +2,9 @@ package com.example.cliente.model;
 import javax.persistence.*;
 
 import lombok.Data;
-import lombok.Getter;
 
 import java.time.LocalDate;
-import java.time.LocalTime;
+
 
 @Data
 @Entity
