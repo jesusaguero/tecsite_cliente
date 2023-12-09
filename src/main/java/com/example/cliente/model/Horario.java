@@ -2,7 +2,8 @@ package com.example.cliente.model;
 import javax.persistence.*;
 import lombok.Data;
 
-import java.sql.Time;
+import java.time.LocalTime;
+
 
 @Data
 @Entity
@@ -11,8 +12,8 @@ public class Horario {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    private Time hora_inicio;
-    private Time hora_fin;
+    private LocalTime hora_inicio;
+    private LocalTime hora_fin;
 
     public Horario() {
     }
@@ -25,19 +26,19 @@ public class Horario {
         this.id = id;
     }
 
-    public Time getHora_inicio() {
+    public LocalTime getHora_inicio() {
         return hora_inicio;
     }
 
-    public void setHora_inicio(Time hora_inicio) {
+    public void setHora_inicio(LocalTime hora_inicio) {
         this.hora_inicio = hora_inicio;
     }
 
-    public Time getHora_fin() {
+    public LocalTime getHora_fin() {
         return hora_fin;
     }
 
-    public void setHora_fin(Time hora_fin) {
+    public void setHora_fin(LocalTime hora_fin) {
         this.hora_fin = hora_fin;
     }
 }

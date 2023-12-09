@@ -38,7 +38,7 @@ public class LaboratorioController {
         Laboratorio laboratorioFromDB = laboratorioRepository.getById(id);
 
         laboratorioFromDB.setNombre(laboratorio.getNombre());
-        laboratorioFromDB.setPabellon_id(laboratorioFromDB.getPabellon_id());
+        laboratorioFromDB.setPabellon_id(laboratorio.getPabellon_id());
 
         return laboratorioRepository.save(laboratorioFromDB);
 

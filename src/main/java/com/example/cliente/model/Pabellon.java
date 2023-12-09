@@ -1,19 +1,19 @@
 package com.example.cliente.model;
 
-import javax.persistence.*;
-
 import lombok.Data;
+
+import javax.persistence.*;
 
 @Data
 @Entity
-@Table(name = "adminapp_polideportivo")
-public class Polideportivo {
+@Table(name = "adminapp_pabellon")
+public class Pabellon {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String nombre;
 
-    public Polideportivo() {
+    public Pabellon() {
     }
 
     public Integer getId() {
