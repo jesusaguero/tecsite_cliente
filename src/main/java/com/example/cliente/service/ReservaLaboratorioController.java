@@ -2,6 +2,7 @@ package com.example.cliente.service;
 import com.example.cliente.model.ReservaLaboratorio;
 import com.example.cliente.repository.ReservaLaboratorioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,36 +18,46 @@ public class ReservaLaboratorioController {
     private ReservaLaboratorioRepository reservaLaboratorioRepository;
 
     @GetMapping("/getAll")
-    public List<ReservaLaboratorio> getAll() {
-        return reservaLaboratorioRepository.findAll();}
+    public List<ReservaLaboratorio> getAllReservas() {
+        return reservaLaboratorioRepository.findAll();
+    }
 
-    @PostMapping("/getById/{id}")
-    public Optional<ReservaLaboratorio> getById(@PathVariable("id") Integer id){
-        return reservaLaboratorioRepository.findById(id);
+    @GetMapping("/getById/{id}")
+    public ResponseEntity<ReservaLaboratorio> getReservaById(@PathVariable("id") Integer id) {
+        Optional<ReservaLaboratorio> reserva = reservaLaboratorioRepository.findById(id);
+        return reserva.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @PostMapping("/store")
-    public ReservaLaboratorio store(@RequestBody ReservaLaboratorio reservaLaboratorio)
-    {
+    public ResponseEntity<ReservaLaboratorio> storeReserva(@RequestBody ReservaLaboratorio reservaLaboratorio) {
         reservaLaboratorio.setId(0);
-        return reservaLaboratorioRepository.save(reservaLaboratorio);
+        ReservaLaboratorio savedReserva = reservaLaboratorioRepository.save(reservaLaboratorio);
+        return ResponseEntity.status(HttpStatus.CREATED).body(savedReserva);
     }
 
     @PutMapping("/update/{id}")
-    public ReservaLaboratorio reservaLaboratorio(@RequestBody ReservaLaboratorio reservaLaboratorio, @PathVariable ("id") Integer id)
-    {
-        ReservaLaboratorio reservaLaboratorioFromDB = reservaLaboratorioRepository.getById(id);
+    public ResponseEntity<ReservaLaboratorio> updateReserva(
+            @RequestBody ReservaLaboratorio reservaLaboratorio,
+            @PathVariable("id") Integer id) {
+        if (!reservaLaboratorioRepository.existsById(id)) {
+            return ResponseEntity.notFound().build();
+        }
 
-        reservaLaboratorioFromDB.setFecha(reservaLaboratorio.getFecha());
-        reservaLaboratorioFromDB.setHorario_id(reservaLaboratorio.getHorario_id());
-        reservaLaboratorioFromDB.setLaboratorio_id(reservaLaboratorio.getLaboratorio_id());
+        ReservaLaboratorio existingReserva = reservaLaboratorioRepository.getById(id);
+        existingReserva.setFecha(reservaLaboratorio.getFecha());
+        existingReserva.setHorario_id(reservaLaboratorio.getHorario_id());
+        existingReserva.setLaboratorio_id(reservaLaboratorio.getLaboratorio_id());
 
-        return reservaLaboratorioRepository.save(reservaLaboratorioFromDB);
+        ReservaLaboratorio updatedReserva = reservaLaboratorioRepository.save(existingReserva);
+        return ResponseEntity.ok(updatedReserva);
     }
 
     @DeleteMapping("/delete/{id}")
-    public ResponseEntity<ReservaLaboratorio> delete(@PathVariable("id") Integer id)
-    {
+    public ResponseEntity<Void> deleteReserva(@PathVariable("id") Integer id) {
+        if (!reservaLaboratorioRepository.existsById(id)) {
+            return ResponseEntity.notFound().build();
+        }
+
         reservaLaboratorioRepository.deleteById(id);
         return ResponseEntity.ok().build();
     }

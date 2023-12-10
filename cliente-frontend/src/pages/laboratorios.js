@@ -1,118 +1,116 @@
 import React, { useState, useEffect } from 'react';
+import Calendar from 'react-calendar';
+import 'react-calendar/dist/Calendar.css';
 import axios from 'axios';
-import { Container, Row, Col, Button, Form } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
+import logo from '../assets/logo.png';
 
-const LaboratoryReservation = () => {
-    const [selectedDay, setSelectedDay] = useState(null);
-    const [selectedTime, setSelectedTime] = useState(null);
-    const [horariosDisponibles, setHorariosDisponibles] = useState([]);
-    const [reservationStatus, setReservationStatus] = useState(null);
-
-    const daysOfWeek = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes'];
-
-    const handleDaySelection = (day) => {
-        setSelectedDay(day);
-        setSelectedTime(null); // Restablecer la selección de hora
-    };
-
-    const handleTimeSelection = (time) => {
-        setSelectedTime(time);
-    };
-
-    const handleReservation = async () => {
-        try {
-            // Hacer una solicitud al servidor para registrar la reserva
-            const response = await axios.post('http://localhost:8090/reservalaboratorio/store', {
-                day: selectedDay,
-                time: selectedTime,
-            });
-
-            // Verificar la respuesta del servidor
-            if (response.data.success) {
-                setReservationStatus('Reserva exitosa');
-            } else {
-                setReservationStatus('Error al realizar la reserva');
-            }
-        } catch (error) {
-            console.error('Error al realizar la reserva:', error);
-            setReservationStatus('Error al realizar la reserva');
-        }
-    };
+function ReservaLaboratorios() {
+    const [selectedDate, setSelectedDate] = useState(new Date());
+    const [horarios, setHorarios] = useState([]);
+    const [laboratorios, setLaboratorios] = useState([]);
+    const [selectedLaboratorio, setSelectedLaboratorio] = useState(null);
+    const [selectedHorario, setSelectedHorario] = useState(null);
 
     useEffect(() => {
-        const fetchHorariosDisponibles = async () => {
+        const fetchHorarios = async () => {
             try {
                 const response = await axios.get('http://localhost:8090/horarios/getAll');
-                setHorariosDisponibles(response.data);
+                setHorarios(response.data);
             } catch (error) {
-                console.error('Error al obtener los horarios disponibles:', error);
+                console.error('Error al obtener los horarios disponibles', error);
             }
         };
 
-        fetchHorariosDisponibles();
-    }, []); // Se ejecuta solo una vez al montar el componente
+        const fetchLaboratorios = async () => {
+            try {
+                const response = await axios.get('http://localhost:8090/laboratorios/getAll');
+                setLaboratorios(response.data);
+            } catch (error) {
+                console.error('Error al obtener los laboratorios', error);
+            }
+        };
+
+        fetchHorarios();
+        fetchLaboratorios();
+    }, [selectedHorario, selectedLaboratorio]);
+
+    const handleDateChange = (date) => {
+        setSelectedDate(date);
+    };
+
+    const handleReserva = async () => {
+        try {
+            const reservaData = {
+                fecha: selectedDate,
+                laboratorio_id: selectedLaboratorio,
+                horario_id: selectedHorario,
+            };
+
+            const response = await axios.post('http://localhost:8090/reservalaboratorio/store', reservaData);
+
+            if (response.status === 200) {
+                console.log('Reserva de laboratorio realizada:', selectedLaboratorio);
+            } else {
+                console.error('Error al realizar la reserva de laboratorio. Estado:', response.status);
+            }
+        } catch (error) {
+            console.error('Error al realizar la reserva de laboratorio', error);
+            console.error('Detalles completos del error:', error.response);
+        }
+
+    };
+
 
     return (
-        <Container>
-            <h1 className="mt-4 mb-4">Reserva de Laboratorios</h1>
+        <div className="container mt-4">
+            <Link to="/home" className="navbar-brand d-flex align-items-center text-center">
+                <img src={logo} alt="TECSITE Logo" width="100" height="100" className="mx-auto" />
+            </Link>
+            <button
+                className="navbar-toggler"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#navbarNav"
+                aria-controls="navbarNav"
+                aria-expanded="false"
+                aria-label="Toggle navigation"
+            >
+                <span className="navbar-toggler-icon"></span>
+            </button>
 
-            <Row className="mb-4">
-                <Col>
-                    <p>Selecciona un día de la semana:</p>
-                    <ul className="list-unstyled">
-                        {daysOfWeek.map((day) => (
-                            <li key={day}>
-                                <Button variant="secondary" onClick={() => handleDaySelection(day)}>
-                                    {day}
-                                </Button>
-                            </li>
+            <div className="d-flex justify-content-center align-items-center mt-4">
+                <div className="me-3">
+                    <Calendar onChange={handleDateChange} value={selectedDate} />
+                </div>
+
+                <div className="me-3">
+                    <select className="form-select" onChange={(e) => setSelectedLaboratorio(e.target.value)}>
+                        <option value="">Selecciona un laboratorio</option>
+                        {laboratorios.map((laboratorio) => (
+                            <option key={laboratorio.id} value={laboratorio.id}>
+                                {laboratorio.nombre}
+                            </option>
                         ))}
-                    </ul>
-                </Col>
-            </Row>
+                    </select>
+                </div>
 
-            {selectedDay && (
-                <Row className="mb-4">
-                    <Col>
-                        <p>Has seleccionado el día: {selectedDay}</p>
-                        <Form.Group controlId="laboratorySelection">
-                            <Form.Label>Selecciona un laboratorio:</Form.Label>
-                            {/* Agrega aquí el componente de selección de laboratorio */}
-                        </Form.Group>
-                    </Col>
-                </Row>
-            )}
-
-            {selectedDay && (
-                <Row className="mb-4">
-                    <Col>
-                        <p>Selecciona un horario para {selectedDay}:</p>
-                        <ul className="list-unstyled">
-                            {horariosDisponibles.map((horario) => (
-                                <li key={horario.id}>
-                                    <Button variant="secondary" onClick={() => handleTimeSelection(horario.hora_inicio)}>
-                                        {horario.hora_inicio} - {horario.hora_fin}
-                                    </Button>
-                                </li>
-                            ))}
-                        </ul>
-                    </Col>
-                </Row>
-            )}
-
-            {selectedTime && (
-                <Row>
-                    <Col>
-                        <p>Has seleccionado el horario: {selectedTime}</p>
-                        <Button variant="primary" onClick={handleReservation}>
-                            Reservar laboratorio
-                        </Button>
-                        {reservationStatus && <p className="mt-2">{reservationStatus}</p>}
-                    </Col>
-                </Row>
-            )}
-        </Container>
+                <div className="me-3">
+                    <select className="form-select" onChange={(e) => setSelectedHorario(e.target.value)}>
+                        <option value="">Selecciona un horario</option>
+                        {horarios.map((horario) => (
+                            <option key={horario.id} value={horario.id}>
+                                {`${horario.hora_inicio} - ${horario.hora_fin}`}
+                            </option>
+                        ))}
+                    </select>
+                </div>
+                <button className="btn btn-primary" onClick={handleReserva}>
+                    Reservar
+                </button>
+            </div>
+        </div>
     );
-};
+}
 
-export default LaboratoryReservation;
+export default ReservaLaboratorios;
