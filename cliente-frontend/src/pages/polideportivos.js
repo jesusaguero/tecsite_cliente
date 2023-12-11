@@ -54,11 +54,9 @@ function ReservaPolideportivos() {
       if (response.status === 200 || response.status === 201) {
         setReservaMessage('Reserva de polideportivo realizada con éxito.');
 
-        // Asegúrate de que los polideportivos y horarios se han cargado correctamente
         console.log('Polideportivos:', polideportivos);
         console.log('Horarios:', horarios);
 
-        // Ajusta la lógica para acceder a los nombres del polideportivo y horario
         const nombrePolideportivo = polideportivos.find((pol) => pol.id === parseInt(selectedPolideportivo))?.nombre || 'Polideportivo Desconocido';
         const horaInicio = horarios.find((hor) => hor.id === parseInt(selectedHorario))?.hora_inicio || 'Horario Desconocido';
 
@@ -135,6 +133,9 @@ function ReservaPolideportivos() {
             Reservar
           </button>
         </div>
+        <Link to="/home" className="btn btn-primary mt-3">
+          Volver a Inicio
+        </Link>
 
         {reservaMessage && (
             <div className={`mt-3 alert ${reservaMessage.includes('éxito') ? 'alert-success' : 'alert-danger'}`} role="alert">

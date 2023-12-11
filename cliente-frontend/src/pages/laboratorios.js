@@ -150,7 +150,9 @@ function ReservaLaboratorios() {
                     {reservaMessage}
                 </div>
             )}
-
+            <Link to="/home" className="btn btn-primary mt-3">
+                Volver a Inicio
+            </Link>
             {resumenReserva && (
                 <div className="mt-3">
                     <h5>Resumen de la Reserva:</h5>
