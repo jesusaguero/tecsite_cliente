@@ -7,17 +7,18 @@ import logo from '../assets/logo.png';
 
 function ReservaPolideportivos() {
   const [selectedDate, setSelectedDate] = useState(new Date());
-  const [horariosDisponibles, setHorariosDisponibles] = useState([]);
+  const [horarios, setHorarios] = useState([]);
   const [polideportivos, setPolideportivos] = useState([]);
   const [selectedPolideportivo, setSelectedPolideportivo] = useState(null);
+  const [selectedHorario, setSelectedHorario] = useState(null);
+  const [reservaMessage, setReservaMessage] = useState(null);
+  const [resumenReserva, setResumenReserva] = useState(null);
 
   useEffect(() => {
-    const fetchHorariosDisponibles = async () => {
+    const fetchHorarios = async () => {
       try {
-        const response = await axios.get(
-            `http://localhost:8090/horarios`
-        );
-        setHorariosDisponibles(response.data);
+        const response = await axios.get('http://localhost:8090/horarios/getAll');
+        setHorarios(response.data);
       } catch (error) {
         console.error('Error al obtener los horarios disponibles', error);
       }
@@ -32,24 +33,63 @@ function ReservaPolideportivos() {
       }
     };
 
-    fetchHorariosDisponibles();
+    fetchHorarios();
     fetchPolideportivos();
-  }, [selectedDate, selectedPolideportivo]);
+  }, [selectedHorario, selectedPolideportivo]);
 
   const handleDateChange = (date) => {
     setSelectedDate(date);
   };
 
-  const handleReserva = async (horaInicio) => {
+  const handleReserva = async () => {
     try {
-      console.log('Reserva de polideportivo realizada:', horaInicio);
+      const reservaData = {
+        fecha: selectedDate,
+        polideportivo_id: selectedPolideportivo,
+        horario_id: selectedHorario,
+      };
+
+      const response = await axios.post('http://localhost:8090/reservapolideportivo/store', reservaData);
+
+      if (response.status === 200 || response.status === 201) {
+        setReservaMessage('Reserva de polideportivo realizada con éxito.');
+
+        // Asegúrate de que los polideportivos y horarios se han cargado correctamente
+        console.log('Polideportivos:', polideportivos);
+        console.log('Horarios:', horarios);
+
+        // Ajusta la lógica para acceder a los nombres del polideportivo y horario
+        const nombrePolideportivo = polideportivos.find((pol) => pol.id === parseInt(selectedPolideportivo))?.nombre || 'Polideportivo Desconocido';
+        const horaInicio = horarios.find((hor) => hor.id === parseInt(selectedHorario))?.hora_inicio || 'Horario Desconocido';
+
+        setResumenReserva({
+          fecha: selectedDate,
+          polideportivo: nombrePolideportivo,
+          horario: horaInicio,
+        });
+
+        console.log('Reserva de polideportivo realizada:', selectedPolideportivo);
+
+        setSelectedDate(new Date());
+        setSelectedPolideportivo(null);
+        setSelectedHorario(null);
+
+        setTimeout(() => {
+          setResumenReserva(null);
+        }, 5000);
+      } else {
+        setReservaMessage(`Error al realizar la reserva de polideportivo. Estado: ${response.status}`);
+        console.error('Error al realizar la reserva de polideportivo. Estado:', response.status);
+      }
     } catch (error) {
+      setReservaMessage('Error al realizar la reserva de polideportivo. Consulta los detalles del error en la consola.');
       console.error('Error al realizar la reserva de polideportivo', error);
+      console.error('Detalles completos del error:', error.response);
     }
   };
 
   return (
-      <div className="container">
+      <div className="container mt-4">
         <Link to="/home" className="navbar-brand d-flex align-items-center text-center">
           <img src={logo} alt="TECSITE Logo" width="100" height="100" className="mx-auto" />
         </Link>
@@ -65,16 +105,14 @@ function ReservaPolideportivos() {
           <span className="navbar-toggler-icon"></span>
         </button>
 
-        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-          <div style={{ marginRight: '20px' }}>
-            <h2>Selecciona el Día:</h2>
+        <div className="d-flex justify-content-center align-items-center mt-4">
+          <div className="me-3">
             <Calendar onChange={handleDateChange} value={selectedDate} />
           </div>
 
-          <div style={{ marginRight: '20px' }}>
-            <h2>Selecciona el Polideportivo:</h2>
-            <select onChange={(e) => setSelectedPolideportivo(e.target.value)}>
-              <option value="">Selecciona un polideportivo</option>
+          <div className="me-3">
+            <select className="form-select" onChange={(e) => setSelectedPolideportivo(e.target.value)}>
+              <option value="">Selecciona un Polideportivo</option>
               {polideportivos.map((polideportivo) => (
                   <option key={polideportivo.id} value={polideportivo.id}>
                     {polideportivo.nombre}
@@ -83,33 +121,35 @@ function ReservaPolideportivos() {
             </select>
           </div>
 
-          <div>
-            <h2>Horarios Disponibles</h2>
-            <table style={{ width: '100%' }}>
-              <thead>
-              <tr>
-                <th>Hora Inicio</th>
-                <th>Hora Fin</th>
-                <th>Acciones</th>
-              </tr>
-              </thead>
-              <tbody>
-              {horariosDisponibles.map((horario) => {
-                // Resto del código similar al ejemplo anterior
-                return (
-                    <tr key={horario.id}>
-                      <td>{/*...*/}</td>
-                      <td>{/*...*/}</td>
-                      <td>
-                        <button onClick={() => handleReserva(horario.hora_inicio)}>Reservar</button>
-                      </td>
-                    </tr>
-                );
-              })}
-              </tbody>
-            </table>
+          <div className="me-3">
+            <select className="form-select" onChange={(e) => setSelectedHorario(e.target.value)}>
+              <option value="">Selecciona un horario</option>
+              {horarios.map((horario) => (
+                  <option key={horario.id} value={horario.id}>
+                    {`${horario.hora_inicio} - ${horario.hora_fin}`}
+                  </option>
+              ))}
+            </select>
           </div>
+          <button className="btn btn-primary" onClick={handleReserva}>
+            Reservar
+          </button>
         </div>
+
+        {reservaMessage && (
+            <div className={`mt-3 alert ${reservaMessage.includes('éxito') ? 'alert-success' : 'alert-danger'}`} role="alert">
+              {reservaMessage}
+            </div>
+        )}
+
+        {resumenReserva && (
+            <div className="mt-3">
+              <h5>Resumen de la Reserva:</h5>
+              <p>Fecha: {resumenReserva.fecha.toLocaleDateString()}</p>
+              <p>Polideportivo: {resumenReserva.polideportivo}</p>
+              <p>Horario: {resumenReserva.horario}</p>
+            </div>
+        )}
       </div>
   );
 }

@@ -11,6 +11,8 @@ function ReservaLaboratorios() {
     const [laboratorios, setLaboratorios] = useState([]);
     const [selectedLaboratorio, setSelectedLaboratorio] = useState(null);
     const [selectedHorario, setSelectedHorario] = useState(null);
+    const [reservaMessage, setReservaMessage] = useState(null);
+    const [resumenReserva, setResumenReserva] = useState(null);
 
     useEffect(() => {
         const fetchHorarios = async () => {
@@ -49,19 +51,42 @@ function ReservaLaboratorios() {
 
             const response = await axios.post('http://localhost:8090/reservalaboratorio/store', reservaData);
 
-            if (response.status === 200) {
+            if (response.status === 200 || response.status === 201) {
+                setReservaMessage('Reserva de laboratorio realizada con éxito.');
+
+                // Asegúrate de que los laboratorios y horarios se han cargado correctamente
+                console.log('Laboratorios:', laboratorios);
+                console.log('Horarios:', horarios);
+
+                // Ajusta la lógica para acceder a los nombres del laboratorio y horario
+                const nombreLaboratorio = laboratorios.find((lab) => lab.id === parseInt(selectedLaboratorio))?.nombre || 'Laboratorio Desconocido';
+                const horaInicio = horarios.find((hor) => hor.id === parseInt(selectedHorario))?.hora_inicio || 'Horario Desconocido';
+
+                setResumenReserva({
+                    fecha: selectedDate,
+                    laboratorio: nombreLaboratorio,
+                    horario: horaInicio,
+                });
+
                 console.log('Reserva de laboratorio realizada:', selectedLaboratorio);
+
+                setSelectedDate(new Date());
+                setSelectedLaboratorio(null);
+                setSelectedHorario(null);
+
+                setTimeout(() => {
+                    setResumenReserva(null);
+                }, 5000);
             } else {
+                setReservaMessage(`Error al realizar la reserva de laboratorio. Estado: ${response.status}`);
                 console.error('Error al realizar la reserva de laboratorio. Estado:', response.status);
             }
         } catch (error) {
+            setReservaMessage('Error al realizar la reserva de laboratorio. Consulta los detalles del error en la consola.');
             console.error('Error al realizar la reserva de laboratorio', error);
             console.error('Detalles completos del error:', error.response);
         }
-
     };
-
-
     return (
         <div className="container mt-4">
             <Link to="/home" className="navbar-brand d-flex align-items-center text-center">
@@ -81,7 +106,7 @@ function ReservaLaboratorios() {
 
             <div className="d-flex justify-content-center align-items-center mt-4">
                 <div className="me-3">
-                    <Calendar onChange={handleDateChange} value={selectedDate} />
+                    <Calendar onChange={handleDateChange} value={selectedDate}/>
                 </div>
 
                 <div className="me-3">
@@ -109,6 +134,21 @@ function ReservaLaboratorios() {
                     Reservar
                 </button>
             </div>
+
+            {reservaMessage && (
+                <div className={`mt-3 alert ${reservaMessage.includes('éxito') ? 'alert-success' : 'alert-danger'}`} role="alert">
+                    {reservaMessage}
+                </div>
+            )}
+
+            {resumenReserva && (
+                <div className="mt-3">
+                    <h5>Resumen de la Reserva:</h5>
+                    <p>Fecha: {resumenReserva.fecha.toLocaleDateString()}</p>
+                    <p>Laboratorio: {resumenReserva.laboratorio}</p>
+                    <p>Horario: {resumenReserva.horario}</p>
+                </div>
+            )}
         </div>
     );
 }

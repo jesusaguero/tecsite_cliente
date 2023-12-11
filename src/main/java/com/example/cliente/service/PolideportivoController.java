@@ -36,7 +36,6 @@ public class PolideportivoController {
     public Polideportivo update(@RequestBody Polideportivo polideportivo, @PathVariable ("id") Integer id)
     {
         Polideportivo polideportivoFromDB = polideportivoRepository.getById(id);
-
         polideportivoFromDB.setNombre(polideportivo.getNombre());
 
         return polideportivoRepository.save(polideportivoFromDB);

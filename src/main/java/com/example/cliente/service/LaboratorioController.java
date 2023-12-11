@@ -51,5 +51,3 @@ public class LaboratorioController {
         return ResponseEntity.ok().build();
     }
 }
-
-
