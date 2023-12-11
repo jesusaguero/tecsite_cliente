@@ -1,5 +1,4 @@
 package com.example.cliente.model;
-
 import lombok.Data;
 import lombok.Getter;
 
@@ -15,7 +14,6 @@ public class ReservaPolideportivo {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-
     private LocalDate fecha;
     private Integer horario_id;
     private Integer polideportivo_id;

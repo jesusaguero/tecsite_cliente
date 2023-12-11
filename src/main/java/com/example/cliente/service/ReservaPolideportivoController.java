@@ -3,11 +3,14 @@ package com.example.cliente.service;
 import com.example.cliente.model.ReservaPolideportivo;
 import com.example.cliente.repository.ReservaPolideportivoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
+
+import static org.springframework.data.jpa.domain.AbstractPersistable_.id;
 
 @RestController
 @RequestMapping("/reservapolideportivo")
@@ -21,28 +24,43 @@ public class ReservaPolideportivoController {
     public List<ReservaPolideportivo> getAll(){
         return reservaPolideportivoRepository.findAll();}
 
-    @PostMapping("/getById/{id}")
-    public Optional<ReservaPolideportivo> getById(@PathVariable("id") Integer id){
-        return reservaPolideportivoRepository.findById(id);
+    @GetMapping("/getById/{id}")
+    public ResponseEntity<ReservaPolideportivo> getReservaById(@PathVariable("id") Integer id){
+        Optional<ReservaPolideportivo> reserva = reservaPolideportivoRepository.findById(id);
+        return reserva.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
+    }
+
+    @PostMapping("/store")
+    public ResponseEntity<ReservaPolideportivo> storeReserva(@RequestBody ReservaPolideportivo reservaPolideportivo){
+        reservaPolideportivo.setId(0);
+        ReservaPolideportivo savedReserva = reservaPolideportivoRepository.save(reservaPolideportivo);
+        return ResponseEntity.status(HttpStatus.CREATED).body(savedReserva);
     }
 
     @PutMapping("/update/{id}")
-    public ReservaPolideportivo update(@RequestBody ReservaPolideportivo reservaPolideportivo, @PathVariable ("id") Integer id)
-    {
-        ReservaPolideportivo reservaPolideportivoFromDB = reservaPolideportivoRepository.getById(id);
+    public ResponseEntity<ReservaPolideportivo> updateReserva(
+            @RequestBody ReservaPolideportivo reservaPolideportivo,
+            @PathVariable("id") Integer id){
+        if (!reservaPolideportivoRepository.existsById(id)){
+            return ResponseEntity.notFound().build();
+        }
 
-        reservaPolideportivoFromDB.setFecha(reservaPolideportivo.getFecha());
-        reservaPolideportivoFromDB.setHorario_id(reservaPolideportivo.getHorario_id());
-        reservaPolideportivoFromDB.setPolideportivo_id(reservaPolideportivo.getPolideportivo_id());
+        ReservaPolideportivo existingReserva = reservaPolideportivoRepository.getById(id);
+        existingReserva.setFecha(reservaPolideportivo.getFecha());
+        existingReserva.setHorario_id(reservaPolideportivo.getHorario_id());
+        existingReserva.setPolideportivo_id(reservaPolideportivo.getPolideportivo_id());
 
-        return reservaPolideportivoRepository.save(reservaPolideportivoFromDB);
-
+        ReservaPolideportivo updateReserva = reservaPolideportivoRepository.save(existingReserva);
+        return ResponseEntity.ok(updateReserva);
     }
 
     @DeleteMapping("/delete/{id}")
-    public ResponseEntity<ReservaPolideportivo> delete(@PathVariable("id") Integer id)
-    {
+    public ResponseEntity<Void> deleteReserva(@PathVariable("id") Integer id){
+        if (!reservaPolideportivoRepository.existsById(id)){
+            return ResponseEntity.notFound().build();
+    }
+
         reservaPolideportivoRepository.deleteById(id);
         return ResponseEntity.ok().build();
-    }
+}
 }
