@@ -4,6 +4,8 @@ import 'react-calendar/dist/Calendar.css';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import logo from '../assets/logo.png';
+import loginImageLeft from '../assets/layout2.png';
+import loginImageRight from '../assets/layout1.png';
 
 function ReservaLaboratorios() {
     const [selectedDate, setSelectedDate] = useState(new Date());
@@ -87,10 +89,11 @@ function ReservaLaboratorios() {
             console.error('Detalles completos del error:', error.response);
         }
     };
+
     return (
         <div className="container mt-4">
             <Link to="/home" className="navbar-brand d-flex align-items-center text-center">
-                <img src={logo} alt="TECSITE Logo" width="100" height="100" className="mx-auto" />
+                <img src={logo} alt="TECSITE Logo" width="100" height="100" className="mx-auto"/>
             </Link>
             <button
                 className="navbar-toggler"
@@ -103,6 +106,12 @@ function ReservaLaboratorios() {
             >
                 <span className="navbar-toggler-icon"></span>
             </button>
+
+            <img src={loginImageLeft} alt="Login" className="w-15 h-70 position-absolute start-0"
+                 style={{objectFit: 'cover', zIndex: '-1', transform: 'scaleX(-1)'}}/>
+
+            <img src={loginImageRight} alt="Login" className="w-15 h-70 position-absolute end-0"
+                 style={{objectFit: 'cover', zIndex: '-1'}}/>
 
             <div className="d-flex justify-content-center align-items-center mt-4">
                 <div className="me-3">
@@ -136,7 +145,8 @@ function ReservaLaboratorios() {
             </div>
 
             {reservaMessage && (
-                <div className={`mt-3 alert ${reservaMessage.includes('éxito') ? 'alert-success' : 'alert-danger'}`} role="alert">
+                <div className={`mt-3 alert ${reservaMessage.includes('éxito') ? 'alert-success' : 'alert-danger'}`}
+                     role="alert">
                     {reservaMessage}
                 </div>
             )}
