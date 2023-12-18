@@ -16,6 +16,7 @@ public class ReservaLaboratorio {
     private LocalDate fecha;
     private Integer horario_id;
     private Integer laboratorio_id;
+    private Integer usuario_id;
 
     public ReservaLaboratorio() {
     }
@@ -50,5 +51,13 @@ public class ReservaLaboratorio {
 
     public void setLaboratorio_id(Integer laboratorio_id) {
         this.laboratorio_id = laboratorio_id;
+    }
+
+    public Integer getUsuario_id() {
+        return usuario_id;
+    }
+
+    public void setUsuario_id(Integer usuario_id) {
+        this.usuario_id = usuario_id;
     }
 }

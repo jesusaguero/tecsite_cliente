@@ -47,6 +47,7 @@ public class ReservaLaboratorioController {
         existingReserva.setFecha(reservaLaboratorio.getFecha());
         existingReserva.setHorario_id(reservaLaboratorio.getHorario_id());
         existingReserva.setLaboratorio_id(reservaLaboratorio.getLaboratorio_id());
+        existingReserva.setUsuario_id(reservaLaboratorio.getUsuario_id());
 
         ReservaLaboratorio updatedReserva = reservaLaboratorioRepository.save(existingReserva);
         return ResponseEntity.ok(updatedReserva);

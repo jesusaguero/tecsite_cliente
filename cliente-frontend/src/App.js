@@ -9,9 +9,6 @@ function App() {
   return (
     <Router>
       <div>
-        <nav>
-          
-        </nav>
         <Routes>
           <Route path="/home" element={<Home />} />
           <Route path="/" element={<Login />} />

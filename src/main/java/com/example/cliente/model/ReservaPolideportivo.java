@@ -17,6 +17,8 @@ public class ReservaPolideportivo {
     private LocalDate fecha;
     private Integer horario_id;
     private Integer polideportivo_id;
+    private Integer usuario_id;
+
 
     public ReservaPolideportivo() {
     }
@@ -51,5 +53,13 @@ public class ReservaPolideportivo {
 
     public void setPolideportivo_id(Integer polideportivo_id) {
         this.polideportivo_id = polideportivo_id;
+    }
+
+    public Integer getUsuario_id() {
+        return usuario_id;
+    }
+
+    public void setUsuario_id(Integer usuario_id) {
+        this.usuario_id = usuario_id;
     }
 }

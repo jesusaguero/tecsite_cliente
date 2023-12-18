@@ -49,6 +49,7 @@ public class ReservaPolideportivoController {
         existingReserva.setFecha(reservaPolideportivo.getFecha());
         existingReserva.setHorario_id(reservaPolideportivo.getHorario_id());
         existingReserva.setPolideportivo_id(reservaPolideportivo.getPolideportivo_id());
+        existingReserva.setUsuario_id(reservaPolideportivo.getUsuario_id());
 
         ReservaPolideportivo updateReserva = reservaPolideportivoRepository.save(existingReserva);
         return ResponseEntity.ok(updateReserva);

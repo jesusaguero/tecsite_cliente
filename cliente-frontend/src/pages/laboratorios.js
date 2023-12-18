@@ -56,11 +56,9 @@ function ReservaLaboratorios() {
             if (response.status === 200 || response.status === 201) {
                 setReservaMessage('Reserva de laboratorio realizada con éxito.');
 
-                // Asegúrate de que los laboratorios y horarios se han cargado correctamente
                 console.log('Laboratorios:', laboratorios);
                 console.log('Horarios:', horarios);
 
-                // Ajusta la lógica para acceder a los nombres del laboratorio y horario
                 const nombreLaboratorio = laboratorios.find((lab) => lab.id === parseInt(selectedLaboratorio))?.nombre || 'Laboratorio Desconocido';
                 const horaInicio = horarios.find((hor) => hor.id === parseInt(selectedHorario))?.hora_inicio || 'Horario Desconocido';
 
