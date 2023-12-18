@@ -29,10 +29,10 @@ public class ReservaLaboratorioController {
     }
 
     @PostMapping("/store")
-    public ResponseEntity<ReservaLaboratorio> storeReserva(@RequestBody ReservaLaboratorio reservaLaboratorio) {
+    public ReservaLaboratorio store(@RequestBody ReservaLaboratorio reservaLaboratorio)
+    {
         reservaLaboratorio.setId(0);
-        ReservaLaboratorio savedReserva = reservaLaboratorioRepository.save(reservaLaboratorio);
-        return ResponseEntity.status(HttpStatus.CREATED).body(savedReserva);
+        return reservaLaboratorioRepository.save(reservaLaboratorio);
     }
 
     @PutMapping("/update/{id}")

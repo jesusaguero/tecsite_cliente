@@ -24,17 +24,17 @@ public class ReservaPolideportivoController {
     public List<ReservaPolideportivo> getAll(){
         return reservaPolideportivoRepository.findAll();}
 
-    @GetMapping("/getById/{id}")
+    @PostMapping("/getById/{id}")
     public ResponseEntity<ReservaPolideportivo> getReservaById(@PathVariable("id") Integer id){
         Optional<ReservaPolideportivo> reserva = reservaPolideportivoRepository.findById(id);
         return reserva.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @PostMapping("/store")
-    public ResponseEntity<ReservaPolideportivo> storeReserva(@RequestBody ReservaPolideportivo reservaPolideportivo){
+    public ReservaPolideportivo store(@RequestBody ReservaPolideportivo reservaPolideportivo)
+    {
         reservaPolideportivo.setId(0);
-        ReservaPolideportivo savedReserva = reservaPolideportivoRepository.save(reservaPolideportivo);
-        return ResponseEntity.status(HttpStatus.CREATED).body(savedReserva);
+        return reservaPolideportivoRepository.save(reservaPolideportivo);
     }
 
     @PutMapping("/update/{id}")

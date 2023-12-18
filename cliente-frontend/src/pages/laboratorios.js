@@ -9,10 +9,15 @@ import loginImageRight from '../assets/layout1.png';
 
 function ReservaLaboratorios() {
     const [selectedDate, setSelectedDate] = useState(new Date());
+
     const [horarios, setHorarios] = useState([]);
     const [laboratorios, setLaboratorios] = useState([]);
+    const [usuarios, setUsuarios] = useState([]);
+
     const [selectedLaboratorio, setSelectedLaboratorio] = useState(null);
     const [selectedHorario, setSelectedHorario] = useState(null);
+    const [selectedUsuario, setSelectedUsuario] = useState(null);
+
     const [reservaMessage, setReservaMessage] = useState(null);
     const [resumenReserva, setResumenReserva] = useState(null);
 
@@ -35,9 +40,19 @@ function ReservaLaboratorios() {
             }
         };
 
+        const fetchUsuarios = async () => {
+            try {
+                const response = await axios.get('http://localhost:8090/clientes/getAll');
+                setUsuarios(response.data);
+            } catch (error) {
+                console.error('Error al obtener los Usuarios', error);
+            }
+        };
+
         fetchHorarios();
         fetchLaboratorios();
-    }, [selectedHorario, selectedLaboratorio]);
+        fetchUsuarios();
+    }, [selectedHorario, selectedLaboratorio, selectedUsuario]);
 
     const handleDateChange = (date) => {
         setSelectedDate(date);
@@ -49,6 +64,7 @@ function ReservaLaboratorios() {
                 fecha: selectedDate,
                 laboratorio_id: selectedLaboratorio,
                 horario_id: selectedHorario,
+                usuario_id: selectedUsuario,
             };
 
             const response = await axios.post('http://localhost:8090/reservalaboratorio/store', reservaData);
@@ -58,14 +74,17 @@ function ReservaLaboratorios() {
 
                 console.log('Laboratorios:', laboratorios);
                 console.log('Horarios:', horarios);
+                console.log('Usuarios:', usuarios);
 
                 const nombreLaboratorio = laboratorios.find((lab) => lab.id === parseInt(selectedLaboratorio))?.nombre || 'Laboratorio Desconocido';
                 const horaInicio = horarios.find((hor) => hor.id === parseInt(selectedHorario))?.hora_inicio || 'Horario Desconocido';
+                const codigoUsuario = usuarios.find((usu) => usu.id === parseInt(selectedUsuario))?.codigo || 'Codigo Desconocido';
 
                 setResumenReserva({
                     fecha: selectedDate,
                     laboratorio: nombreLaboratorio,
                     horario: horaInicio,
+                    usuario: codigoUsuario,
                 });
 
                 console.log('Reserva de laboratorio realizada:', selectedLaboratorio);
@@ -73,6 +92,7 @@ function ReservaLaboratorios() {
                 setSelectedDate(new Date());
                 setSelectedLaboratorio(null);
                 setSelectedHorario(null);
+                setSelectedUsuario(null);
 
                 setTimeout(() => {
                     setResumenReserva(null);
@@ -106,14 +126,19 @@ function ReservaLaboratorios() {
             </button>
 
             <img src={loginImageLeft} alt="Login" className="w-15 h-70 position-absolute start-0"
-                 style={{objectFit: 'cover', zIndex: '-1', transform: 'scaleX(-1)'}}/>
+                 style={{ objectFit: 'cover', zIndex: '-1', transform: 'scaleX(-1)' }}/>
 
             <img src={loginImageRight} alt="Login" className="w-15 h-70 position-absolute end-0"
-                 style={{objectFit: 'cover', zIndex: '-1'}}/>
+                 style={{ objectFit: 'cover', zIndex: '-1' }}/>
 
             <div className="d-flex justify-content-center align-items-center mt-4">
                 <div className="me-3">
-                    <Calendar onChange={handleDateChange} value={selectedDate}/>
+                    <Calendar
+                        onChange={handleDateChange}
+                        value={selectedDate}
+                        minDate={new Date()}
+                        maxDate={new Date()}
+                    />
                 </div>
 
                 <div className="me-3">
@@ -133,6 +158,17 @@ function ReservaLaboratorios() {
                         {horarios.map((horario) => (
                             <option key={horario.id} value={horario.id}>
                                 {`${horario.hora_inicio} - ${horario.hora_fin}`}
+                            </option>
+                        ))}
+                    </select>
+                </div>
+
+                <div className="me-3">
+                    <select className="form-select" onChange={(e) => setSelectedUsuario(e.target.value)}>
+                        <option value="">Código</option>
+                        {usuarios.map((usuario) => (
+                            <option key={usuario.id} value={usuario.id}>
+                                {`${usuario.codigo}`}
                             </option>
                         ))}
                     </select>
@@ -157,6 +193,8 @@ function ReservaLaboratorios() {
                     <p>Fecha: {resumenReserva.fecha.toLocaleDateString()}</p>
                     <p>Laboratorio: {resumenReserva.laboratorio}</p>
                     <p>Horario: {resumenReserva.horario}</p>
+                    <p>Usuario: {resumenReserva.usuario}</p>
+
                 </div>
             )}
         </div>
